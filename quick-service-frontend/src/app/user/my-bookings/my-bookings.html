@@ -1,0 +1,26 @@
+<h2>My Bookings</h2>
+
+<p>Total bookings: {{ (bookings$ | async)?.length ?? 0 }}</p>
+
+<table
+  *ngIf="(bookings$ | async)?.length"
+  border="1"
+  cellpadding="8"
+  cellspacing="0"
+>
+  <tr>
+    <th>#</th>
+    <th>Service</th>
+    <th>Date</th>
+  </tr>
+
+  <tr *ngFor="let b of (bookings$ | async); let i = index">
+    <td>{{ i + 1 }}</td>
+    <td>{{ b.serviceName }}</td>
+    <td>{{ b.date }}</td>
+  </tr>
+</table>
+
+<p *ngIf="(bookings$ | async)?.length === 0">
+  No bookings found
+</p>

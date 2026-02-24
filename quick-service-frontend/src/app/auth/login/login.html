@@ -1,0 +1,36 @@
+<div style="max-width:350px;margin:80px auto;padding:20px;border:1px solid #ccc;border-radius:8px">
+
+  <h2 style="text-align:center">Login</h2>
+
+  <input
+    type="email"
+    [(ngModel)]="email"
+    placeholder="Email"
+    style="width:100%;padding:8px;margin-bottom:10px"
+  />
+
+  <input
+    type="password"
+    [(ngModel)]="password"
+    placeholder="Password"
+    style="width:100%;padding:8px;margin-bottom:10px"
+  />
+
+  <button
+    (click)="login()"
+    [disabled]="loading"
+    style="width:100%;padding:8px"
+  >
+    {{ loading ? 'Logging in...' : 'Login' }}
+  </button>
+
+  <p *ngIf="errorMsg" style="color:red;text-align:center;margin-top:10px">
+    {{ errorMsg }}
+  </p>
+
+  <p style="text-align:center;margin-top:15px">
+    New user?
+    <a routerLink="/register">Register</a>
+  </p>
+
+</div>

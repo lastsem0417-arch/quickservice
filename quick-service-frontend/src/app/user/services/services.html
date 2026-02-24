@@ -1,0 +1,20 @@
+<h2>Available Services</h2>
+
+<!-- 🔥 ASYNC PIPE -->
+<p>Total services: {{ (services$ | async)?.length }}</p>
+
+@if ((services$ | async)?.length === 0) {
+  <p>No services available</p>
+}
+
+@for (s of (services$ | async); track s._id) {
+  <div style="border:1px solid #ccc;padding:10px;margin-bottom:10px">
+    <h4>{{ s.name }}</h4>
+    <p>Price: ₹{{ s.price }}</p>
+
+    <input type="date" [(ngModel)]="date">
+    <br><br>
+
+    <button (click)="book(s)">Book</button>
+  </div>
+}

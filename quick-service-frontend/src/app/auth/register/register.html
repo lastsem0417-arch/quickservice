@@ -1,0 +1,33 @@
+<div style="width:300px;margin:60px auto;">
+  <h2>Register</h2>
+
+  <input
+    [(ngModel)]="name"
+    placeholder="Name"
+    style="width:100%;padding:8px"
+  />
+  <br /><br />
+
+  <input
+    type="email"
+    [(ngModel)]="email"
+    placeholder="Email"
+    style="width:100%;padding:8px"
+  />
+  <br /><br />
+
+  <input
+    type="password"
+    [(ngModel)]="password"
+    placeholder="Password"
+    style="width:100%;padding:8px"
+  />
+  <br /><br />
+
+  <button style="width:100%" (click)="register()">Register</button>
+
+  <p style="margin-top:15px;text-align:center">
+    Already have an account?
+    <a routerLink="/login">Login</a>
+  </p>
+</div>
