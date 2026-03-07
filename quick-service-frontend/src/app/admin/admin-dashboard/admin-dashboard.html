@@ -1,0 +1,41 @@
+<div class="dashboard">
+
+<h1>Admin Dashboard ⚙️</h1>
+<p class="subtitle">Manage services and bookings</p>
+
+<div class="stats">
+
+<div class="card">
+<h3>Total Services</h3>
+<p>{{totalServices}}</p>
+</div>
+
+<div class="card">
+<h3>Total Bookings</h3>
+<p>{{totalBookings}}</p>
+</div>
+
+<div class="card">
+<h3>Pending Bookings</h3>
+<p>{{pendingBookings}}</p>
+</div>
+
+</div>
+
+<div class="actions">
+
+<a routerLink="/add-service" class="btn">
+➕ Add Service
+</a>
+
+<a routerLink="/admin-bookings" class="btn">
+📋 View Bookings
+</a>
+
+</div>
+
+<button class="logout" (click)="logout()">
+🚪 Logout
+</button>
+
+</div>

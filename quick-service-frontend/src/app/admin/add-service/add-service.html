@@ -1,9 +1,125 @@
-<h2>Add Service</h2>
+<div class="container">
+  <h2>➕ Add New Service</h2>
 
-<input [(ngModel)]="name" placeholder="Service name">
-<br><br>
+  <div class="form-card">
+    <form (ngSubmit)="add()" #serviceForm="ngForm">
+      <!-- Service Name -->
+      <div class="form-group">
+        <label for="name">Service Name *</label>
+        <input
+          id="name"
+          type="text"
+          [(ngModel)]="name"
+          name="name"
+          required
+          placeholder="Enter service name"
+          #nameInput="ngModel"
+        >
+        <div *ngIf="nameInput.invalid && nameInput.touched" class="error">
+          Service name is required
+        </div>
+      </div>
 
-<input [(ngModel)]="price" placeholder="Price">
-<br><br>
+      <!-- Description -->
+      <div class="form-group">
+        <label for="description">Description *</label>
+        <textarea
+          id="description"
+          [(ngModel)]="description"
+          name="description"
+          required
+          minlength="50"
+          placeholder="Describe the service in detail (minimum 50 characters)"
+          rows="4"
+          #descriptionInput="ngModel"
+        ></textarea>
+        <div *ngIf="descriptionInput.invalid && descriptionInput.touched" class="error">
+          Description is required and must be at least 50 characters
+        </div>
+        <small class="help-text">{{ description.length }}/50 characters minimum</small>
+      </div>
 
-<button (click)="add()">Add</button>
+      <!-- Category -->
+      <div class="form-group">
+        <label for="category">Category *</label>
+        <select
+          id="category"
+          [(ngModel)]="category"
+          name="category"
+          required
+          #categoryInput="ngModel"
+        >
+          <option *ngFor="let cat of categories" [value]="cat">
+            {{ cat }}
+          </option>
+        </select>
+        <div *ngIf="categoryInput.invalid && categoryInput.touched" class="error">
+          Category is required
+        </div>
+      </div>
+
+      <!-- Price -->
+      <div class="form-group">
+        <label for="price">Price (₹) *</label>
+        <input
+          id="price"
+          type="number"
+          [(ngModel)]="price"
+          name="price"
+          required
+          min="0"
+          step="0.01"
+          placeholder="Enter price"
+          #priceInput="ngModel"
+        >
+        <div *ngIf="priceInput.invalid && priceInput.touched" class="error">
+          Valid price is required
+        </div>
+      </div>
+
+      <!-- Estimated Duration -->
+      <div class="form-group">
+        <label for="estimatedDuration">Estimated Duration (minutes) *</label>
+        <input
+          id="estimatedDuration"
+          type="number"
+          [(ngModel)]="estimatedDuration"
+          name="estimatedDuration"
+          required
+          min="15"
+          max="480"
+          placeholder="Enter duration in minutes"
+          #durationInput="ngModel"
+        >
+        <div *ngIf="durationInput.invalid && durationInput.touched" class="error">
+          Duration must be between 15-480 minutes
+        </div>
+      </div>
+
+      <!-- Error Message -->
+      <div *ngIf="error" class="error-message">
+        {{ error }}
+      </div>
+
+      <!-- Submit Button -->
+      <div class="form-actions">
+        <button
+          type="submit"
+          [disabled]="loading || serviceForm.invalid"
+          class="btn btn-primary"
+        >
+          <span *ngIf="loading">⏳ Adding Service...</span>
+          <span *ngIf="!loading">✅ Add Service</span>
+        </button>
+
+        <button
+          type="button"
+          class="btn btn-secondary"
+          (click)="resetForm()"
+        >
+          🔄 Reset
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

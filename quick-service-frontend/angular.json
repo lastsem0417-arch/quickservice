@@ -27,7 +27,10 @@
             ],
             "styles": [
               "src/styles.css"
-            ]
+            ],
+            "inlineStyleLanguage": "css",
+            "optimization": true,
+            "sourceMap": false
           },
           "configurations": {
             "production": {
@@ -43,7 +46,15 @@
                   "maximumError": "8kB"
                 }
               ],
-              "outputHashing": "all"
+              "outputHashing": "all",
+              "optimization": {
+                "scripts": true,
+                "styles": {
+                  "minify": true,
+                  "inlineStyleLanguage": "css"
+                },
+                "fonts": true
+              }
             },
             "development": {
               "optimization": false,

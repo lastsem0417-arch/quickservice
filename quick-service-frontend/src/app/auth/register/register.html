@@ -17,11 +17,29 @@
   <br /><br />
 
   <input
+    type="tel"
+    [(ngModel)]="phone"
+    placeholder="Phone (10 digits)"
+    style="width:100%;padding:8px"
+  />
+  <br /><br />
+
+  <input
     type="password"
     [(ngModel)]="password"
     placeholder="Password"
     style="width:100%;padding:8px"
   />
+  <br /><br />
+
+  <label style="display:flex;align-items:center;">
+    <input
+      type="checkbox"
+      [(ngModel)]="isAdmin"
+      style="margin-right:8px"
+    />
+    Register as Admin
+  </label>
   <br /><br />
 
   <button style="width:100%" (click)="register()">Register</button>

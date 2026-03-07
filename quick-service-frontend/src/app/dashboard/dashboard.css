@@ -1,0 +1,221 @@
+/* dashboard.component.css */
+
+/* Use :host to create the card layout since there is no wrapping <div> in the HTML */
+:host {
+  display: block;
+  max-width: 500px;
+  margin: 80px auto;
+  padding: 40px 32px;
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05), 0 4px 6px rgba(0, 0, 0, 0.03);
+  font-family: 'Inter', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  box-sizing: border-box;
+  text-align: center;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+:host:hover {
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08), 0 5px 15px rgba(0, 0, 0, 0.04);
+  transform: translateY(-2px);
+}
+
+/* Main Welcome Heading */
+h2:first-of-type {
+  color: #1e293b;
+  font-size: 26px;
+  font-weight: 800;
+  margin-top: 0;
+  margin-bottom: 8px;
+  letter-spacing: -0.5px;
+}
+
+/* Subtitle Paragraph */
+p {
+  color: #64748b;
+  font-size: 15px;
+  margin-bottom: 32px;
+  line-height: 1.5;
+}
+
+/* Subheading inside the malformed list */
+ul h2 {
+  color: #334155;
+  font-size: 18px;
+  font-weight: 600;
+  margin-top: 24px;
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #f1f5f9;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* List Styling */
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Handle all list items, including the one outside the <ul> */
+li {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+/* Making links look like modern buttons */
+a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 16px;
+  background-color: #f8fafc;
+  color: #2563eb;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 16px;
+  border-radius: 12px;
+  border: 1.5px solid #e2e8f0;
+  box-sizing: border-box;
+  transition: all 0.3s ease;
+}
+
+a:hover {
+  background-color: #eff6ff;
+  border-color: #bfdbfe;
+  color: #1d4ed8;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(37, 99, 235, 0.15);
+}
+
+a:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.1);
+}
+
+/* Specific styling for the orphaned Logout link outside the ul */
+:host > li {
+  margin-top: 24px;
+}
+
+:host > li a {
+  background-color: #ffffff;
+  color: #64748b;
+  border-color: #cbd5e1;
+}
+
+:host > li a:hover {
+  background-color: #f1f5f9;
+  color: #0f172a;
+  border-color: #94a3b8;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 480px) {
+  :host {
+    margin: 40px 16px;
+    padding: 32px 24px;
+    border-radius: 12px;
+  }
+  
+  h2:first-of-type {
+    font-size: 22px;
+  }
+  
+  a {
+    padding: 14px;
+  }
+}
+.dashboard{
+  max-width:900px;
+  margin:80px auto;
+  padding:40px;
+  background:white;
+  border-radius:16px;
+  box-shadow:0 15px 35px rgba(0,0,0,0.08);
+  text-align:center;
+  font-family:'Inter', sans-serif;
+}
+
+h1{
+  font-size:32px;
+  font-weight:800;
+  margin-bottom:10px;
+  color:#1e293b;
+}
+
+.subtitle{
+  color:#64748b;
+  margin-bottom:40px;
+}
+
+.cards{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:25px;
+  margin-bottom:30px;
+}
+
+.card{
+  background:#f8fafc;
+  padding:25px;
+  border-radius:14px;
+  border:1px solid #e2e8f0;
+  transition:0.3s;
+}
+
+.card:hover{
+  transform:translateY(-5px);
+  box-shadow:0 12px 25px rgba(0,0,0,0.1);
+}
+
+.card h3{
+  margin-bottom:10px;
+  color:#1e293b;
+}
+
+.card p{
+  color:#64748b;
+  font-size:14px;
+  margin-bottom:20px;
+}
+
+.btn{
+  display:inline-block;
+  padding:12px 22px;
+  background:#2563eb;
+  color:white;
+  text-decoration:none;
+  border-radius:10px;
+  font-weight:600;
+  transition:0.3s;
+}
+
+.btn:hover{
+  background:#1d4ed8;
+  transform:translateY(-2px);
+}
+
+.logout{
+  padding:12px 26px;
+  background:#ef4444;
+  color:white;
+  border:none;
+  border-radius:10px;
+  font-weight:600;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+.logout:hover{
+  background:#dc2626;
+}

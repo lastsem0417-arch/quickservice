@@ -1,26 +1,81 @@
-<h2>My Bookings</h2>
+<div class="page-container">
+  <div class="header">
+    <h1>My Bookings</h1>
+    <p class="subtitle">Track and manage your service bookings</p>
+  </div>
 
-<p>Total bookings: {{ (bookings$ | async)?.length ?? 0 }}</p>
+  <!-- Status Filter -->
+  <div class="filter-section">
+    <label>Filter by Status:</label>
+    <select [(ngModel)]="selectedStatus" (change)="onStatusChange()" class="filter-select">
+      <option *ngFor="let status of statuses" [value]="status">
+        {{ status === 'all' ? 'All Statuses' : status | titlecase }}
+      </option>
+    </select>
+  </div>
 
-<table
-  *ngIf="(bookings$ | async)?.length"
-  border="1"
-  cellpadding="8"
-  cellspacing="0"
->
-  <tr>
-    <th>#</th>
-    <th>Service</th>
-    <th>Date</th>
-  </tr>
+  <!-- Loading State -->
+  <div *ngIf="loading" class="loading">
+    <div class="spinner"></div>
+    <p>Loading bookings...</p>
+  </div>
 
-  <tr *ngFor="let b of (bookings$ | async); let i = index">
-    <td>{{ i + 1 }}</td>
-    <td>{{ b.serviceName }}</td>
-    <td>{{ b.date }}</td>
-  </tr>
-</table>
+  <!-- Bookings Grid -->
+  <div *ngIf="!loading && bookings.length > 0" class="bookings-grid">
+    <div 
+      *ngFor="let booking of bookings; let i = index" 
+      class="booking-card" 
+      [ngClass]="getStatusClass(booking.status)"
+      [hidden]="selectedStatus !== 'all' && booking.status !== selectedStatus"
+    >
+      <div class="card-header">
+        <h3>{{ booking.serviceName || 'Service Booking' }}</h3>
+        <span class="status-badge" [ngClass]="'status-' + booking.status">
+          {{ booking.status | titlecase }}
+        </span>
+      </div>
 
-<p *ngIf="(bookings$ | async)?.length === 0">
-  No bookings found
-</p>
+      <div class="card-body">
+        <div class="detail-row">
+          <span class="label">Booking Date:</span>
+          <span class="value">{{ booking.bookingDate | date: 'MMM dd, yyyy' }}</span>
+        </div>
+        <div class="detail-row">
+          <span class="label">Start Time:</span>
+          <span class="value">{{ booking.startTime }}</span>
+        </div>
+        <div class="detail-row">
+          <span class="label">Amount:</span>
+          <span class="value price">₹{{ booking.totalAmount }}</span>
+        </div>
+        <div class="detail-row" *ngIf="booking.address">
+          <span class="label">Address:</span>
+          <span class="value">{{ booking.address.city }}, {{ booking.address.zipCode }}</span>
+        </div>
+        <div class="detail-row" *ngIf="booking.notes">
+          <span class="label">Notes:</span>
+          <span class="value">{{ booking.notes }}</span>
+        </div>
+      </div>
+
+      <div class="card-actions">
+        <button 
+          *ngIf="booking.status === 'pending' || booking.status === 'confirmed'" 
+          (click)="cancelBooking(booking)" 
+          class="btn btn-danger"
+        >
+          Cancel Booking
+        </button>
+        <button class="btn btn-outline" disabled>View Details</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Empty State -->
+  <div *ngIf="!loading && bookings.length === 0" class="empty-state">
+    <div class="empty-icon">📭</div>
+    <h2>No bookings found</h2>
+    <p>You haven't made any bookings yet. Browse our services and book now!</p>
+    <a href="/services" class="btn btn-primary">Browse Services</a>
+  </div>
+</div>

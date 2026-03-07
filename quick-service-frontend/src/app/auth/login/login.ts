@@ -3,13 +3,14 @@ import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../services/auth.service';
-
+import { NotificationService } from '../../core/services/notification.service';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [FormsModule, RouterModule, CommonModule], // ✅ ADD THIS
-  templateUrl: './login.html'
+  imports: [FormsModule, RouterModule, CommonModule],
+  templateUrl: './login.html',
+  styleUrl: './login.css'
 })
 export class LoginComponent {
 
@@ -20,29 +21,79 @@ export class LoginComponent {
 
   constructor(
     private auth: AuthService,
-    private router: Router
+    private router: Router,
+    private notification: NotificationService
   ) {}
-login() {
-  this.loading = true;
-  this.errorMsg = '';
 
-  this.auth.login({
-    email: this.email,
-    password: this.password
-  }).subscribe({
-    next: (res: any) => {
-      this.auth.saveToken(res.token);
+  login() {
 
-      // 🔥 ROLE BASED REDIRECT
-      if (res.user.role === 'admin') {
-  this.router.navigate(['/admin-dashboard']);
-} else {
-  this.router.navigate(['/dashboard']);
-}
-    },
-    error: () => {
-      this.errorMsg = 'Invalid email or password';
-      this.loading = false;
+    if (!this.email || !this.password) {
+      this.errorMsg = 'Please enter email and password';
+      return;
     }
-  });
-}}
+
+    this.loading = true;
+    this.errorMsg = '';
+
+    this.auth.login({
+      email: this.email,
+      password: this.password
+    }).subscribe({
+
+      next: (res) => {
+
+        this.loading = false;
+
+        if (res && res.success && res.data) {
+
+          const token = res.data.token;
+          const user = res.data.user;
+
+          console.log("LOGIN SUCCESS:", user);
+
+          // Save token
+          this.auth.saveToken(token);
+
+          // Save role
+          localStorage.setItem('userRole', user.role);
+
+          // Save current user
+          this.auth.setCurrentUser(user);
+
+          this.notification.showSuccess(`Welcome ${user.name}!`);
+
+          // Redirect
+          if (user.role === 'admin') {
+            this.router.navigate(['/admin-dashboard']);
+          } else {
+            this.router.navigate(['/dashboard']);
+          }
+
+        } else {
+          this.errorMsg = 'Login failed';
+          this.notification.showError(this.errorMsg);
+        }
+
+      },
+
+      error: (err) => {
+
+        this.loading = false;
+
+        console.error('Login error:', err);
+
+        this.errorMsg = err?.error?.message || 'Invalid email or password';
+
+        this.notification.showError(this.errorMsg);
+
+      }
+
+    });
+
+  }
+
+  goToRegister() {
+    this.router.navigate(['/register']);
+  }
+
+}

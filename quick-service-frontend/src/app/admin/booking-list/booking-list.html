@@ -1,32 +1,88 @@
-<h2>All Bookings (Admin)</h2>
+<div class="container py-lg">
 
-<p>Total bookings: {{ (bookings$ | async)?.length ?? 0 }}</p>
+<h2>Booking Management</h2>
 
-<table
-  *ngIf="(bookings$ | async)?.length"
-  border="1"
-  cellpadding="8"
-  cellspacing="0"
->
-  <tr>
-    <th>#</th>
-    <th>Service</th>
-    <th>Date</th>
-    <th>User</th>
-    <th>Action</th>
-  </tr>
+<!-- FILTER -->
 
-  <tr *ngFor="let b of (bookings$ | async); let i = index">
-    <td>{{ i + 1 }}</td>
-    <td>{{ b.serviceName }}</td>
-    <td>{{ b.date }}</td>
-    <td>{{ b.userId }}</td>
-    <td>
-      <button (click)="delete(b._id)">Delete</button>
-    </td>
-  </tr>
-</table>
+<div class="card mb-lg">
 
-<p *ngIf="(bookings$ | async)?.length === 0">
-  No bookings found
+<label>Status Filter</label>
+
+<select [(ngModel)]="selectedStatus" (change)="onStatusChange()">
+
+<option *ngFor="let status of statuses" [value]="status">
+{{status | titlecase}}
+</option>
+
+</select>
+
+</div>
+
+<!-- LOADING -->
+
+<div *ngIf="loading">
+
+<p>Loading bookings...</p>
+
+</div>
+
+<!-- BOOKINGS -->
+
+<div *ngIf="!loading && bookings.length > 0" class="grid">
+
+<div *ngFor="let booking of bookings" class="booking-card">
+
+<h3>{{booking.serviceName}}</h3>
+
+<p>
+<b>User:</b> {{booking.userId?.name}}
 </p>
+
+<p>
+<b>Date:</b> {{booking.bookingDate | date}}
+</p>
+
+<p>
+<b>Status:</b>
+<span class="badge">
+{{booking.status}}
+</span>
+</p>
+
+<div class="actions">
+
+<button
+*ngIf="booking.status === 'pending'"
+(click)="approveBooking(booking)"
+>
+Approve
+</button>
+
+<button
+*ngIf="booking.status === 'pending'"
+(click)="rejectBooking(booking)"
+>
+Reject
+</button>
+
+<button
+(click)="deleteBooking(booking)"
+>
+Delete
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- EMPTY -->
+
+<div *ngIf="!loading && bookings.length === 0">
+
+<p>No bookings found</p>
+
+</div>
+
+</div>

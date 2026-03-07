@@ -1,0 +1,154 @@
+/* admin-bookings.component.css */
+
+/* Card Container Styling */
+:host {
+  display: block;
+  max-width: 800px;
+  margin: 60px auto;
+  padding: 40px 32px;
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05), 0 4px 6px rgba(0, 0, 0, 0.03);
+  font-family: 'Inter', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  box-sizing: border-box;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+:host:hover {
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08), 0 5px 15px rgba(0, 0, 0, 0.04);
+  transform: translateY(-2px);
+}
+
+/* Heading Styling */
+h2 {
+  color: #1e293b;
+  font-size: 28px;
+  font-weight: 800;
+  margin-top: 0;
+  margin-bottom: 8px;
+  letter-spacing: -0.5px;
+}
+
+/* Paragraph / Meta Info Styling */
+p {
+  color: #64748b;
+  font-size: 15px;
+  margin-top: 0;
+  margin-bottom: 24px;
+  font-weight: 500;
+}
+
+/* Table Styling - Overriding inline attributes */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border: none !important;
+  background-color: #ffffff;
+  border-radius: 12px;
+  overflow: hidden; /* Ensures border-radius applies to corners */
+  box-shadow: 0 0 0 1px #e2e8f0; /* Crisp outer border */
+  margin-bottom: 16px;
+}
+
+/* Table Headers */
+th {
+  background-color: #f8fafc;
+  color: #334155;
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  text-align: left;
+  padding: 16px 20px !important;
+  border: none !important;
+  border-bottom: 2px solid #e2e8f0 !important;
+}
+
+/* Table Cells */
+td {
+  padding: 16px 20px !important;
+  color: #475569;
+  font-size: 15px;
+  border: none !important;
+  border-bottom: 1px solid #e2e8f0 !important;
+  vertical-align: middle;
+  transition: background-color 0.2s ease;
+}
+
+/* Table Rows */
+tr {
+  transition: background-color 0.2s ease;
+}
+
+tr:last-child td {
+  border-bottom: none !important;
+}
+
+/* Hover Effect for Rows */
+tr:hover {
+  background-color: #f1f5f9; 
+}
+
+/* Delete Button Styling (Danger Action) */
+td button {
+  padding: 8px 16px;
+  background-color: #fee2e2; /* Light red background */
+  color: #ef4444; /* Solid red text */
+  border: 1px solid transparent;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+td button:hover {
+  background-color: #ef4444; /* Solid red background on hover */
+  color: #ffffff; /* White text on hover */
+  box-shadow: 0 4px 10px rgba(239, 68, 68, 0.2);
+  transform: translateY(-1px);
+}
+
+td button:active {
+  transform: translateY(1px);
+  box-shadow: none;
+}
+
+/* Empty State Styling */
+p[style*="color:red"],
+p:last-of-type {
+  background-color: #f8fafc;
+  border: 1px dashed #cbd5e1;
+  color: #64748b;
+  padding: 32px;
+  text-align: center;
+  border-radius: 12px;
+  font-size: 16px;
+  margin-top: 24px;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  :host {
+    margin: 32px 16px;
+    padding: 24px 20px;
+    border-radius: 12px;
+  }
+
+  h2 {
+    font-size: 24px;
+  }
+
+  /* Make table scrollable on small screens */
+  table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  th, td {
+    padding: 12px 16px !important;
+  }
+}

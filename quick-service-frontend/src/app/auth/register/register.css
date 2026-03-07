@@ -1,0 +1,125 @@
+/* register.component.css */
+
+/* Card Container Styling */
+div {
+  width: 90% !important;
+  max-width: 400px !important;
+  margin: 80px auto !important;
+  padding: 40px 32px !important;
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 16px !important;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05), 0 4px 6px rgba(0, 0, 0, 0.03);
+  font-family: 'Inter', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  box-sizing: border-box;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+div:hover {
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08), 0 5px 15px rgba(0, 0, 0, 0.04);
+  transform: translateY(-2px);
+}
+
+/* Heading Styling */
+div h2 {
+  color: #1e293b;
+  font-size: 26px;
+  font-weight: 700;
+  margin-top: 0;
+  margin-bottom: 28px;
+  text-align: center !important;
+  letter-spacing: -0.5px;
+}
+
+/* Hide the <br> tags to enforce modern CSS spacing instead */
+div br {
+  display: none;
+}
+
+/* Input Fields */
+div input {
+  width: 100% !important;
+  padding: 14px 16px !important;
+  margin-bottom: 18px !important;
+  background-color: #f8fafc;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 10px;
+  color: #334155;
+  font-size: 15px;
+  box-sizing: border-box;
+  transition: all 0.3s ease;
+  outline: none;
+  display: block;
+}
+
+div input::placeholder {
+  color: #94a3b8;
+}
+
+div input:focus {
+  background-color: #ffffff;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15);
+}
+
+/* Primary Button */
+div button {
+  width: 100% !important;
+  padding: 14px !important;
+  background-color: #2563eb;
+  color: #ffffff;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+  margin-top: 8px;
+}
+
+div button:hover {
+  background-color: #1d4ed8;
+  box-shadow: 0 6px 16px rgba(37, 99, 235, 0.3);
+  transform: translateY(-1px);
+}
+
+div button:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.2);
+}
+
+/* Bottom Text and Link */
+div p {
+  color: #64748b;
+  font-size: 14px;
+  margin-top: 24px !important;
+  margin-bottom: 0 !important;
+}
+
+div p a {
+  color: #2563eb;
+  text-decoration: none;
+  font-weight: 600;
+  margin-left: 6px;
+  transition: all 0.2s ease;
+}
+
+div p a:hover {
+  color: #1e40af;
+  text-decoration: underline;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 480px) {
+  div {
+    margin: 40px auto !important;
+    padding: 32px 24px !important;
+    border-radius: 12px !important;
+  }
+  
+  div h2 {
+    font-size: 24px;
+    margin-bottom: 24px;
+  }
+}

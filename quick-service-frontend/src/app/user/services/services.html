@@ -1,20 +1,142 @@
+<div class="services-container">
+
 <h2>Available Services</h2>
 
-<!-- 🔥 ASYNC PIPE -->
-<p>Total services: {{ (services$ | async)?.length }}</p>
+<div class="filters">
 
-@if ((services$ | async)?.length === 0) {
-  <p>No services available</p>
-}
+<input
+type="text"
+placeholder="Search services"
+[(ngModel)]="searchQuery"
+(input)="searchServices()"
+/>
 
-@for (s of (services$ | async); track s._id) {
-  <div style="border:1px solid #ccc;padding:10px;margin-bottom:10px">
-    <h4>{{ s.name }}</h4>
-    <p>Price: ₹{{ s.price }}</p>
+<select
+[(ngModel)]="selectedCategory"
+(change)="onCategoryChange()"
+>
 
-    <input type="date" [(ngModel)]="date">
-    <br><br>
+<option *ngFor="let c of categories" [value]="c">
+{{c}}
+</option>
 
-    <button (click)="book(s)">Book</button>
-  </div>
-}
+</select>
+
+<input
+type="number"
+placeholder="Min price"
+[(ngModel)]="minPrice"
+(change)="onPriceChange()"
+/>
+
+<input
+type="number"
+placeholder="Max price"
+[(ngModel)]="maxPrice"
+(change)="onPriceChange()"
+/>
+
+</div>
+
+
+<div *ngIf="!loading" class="services-grid">
+
+<div *ngFor="let service of services" class="service-card">
+
+<img
+[src]="service.image ? service.image : 'assets/no-image.png'"
+class="service-img"
+/>
+
+<h3>{{service.name}}</h3>
+
+<p>{{service.description | slice:0:60}}...</p>
+
+<div class="meta">
+
+<span class="price">₹{{service.price}}</span>
+
+<span>{{service.estimatedDuration}} min</span>
+
+</div>
+
+<button
+(click)="viewServiceDetails(service)"
+class="details-btn"
+>
+
+View Details
+
+</button>
+
+</div>
+
+</div>
+
+
+<div class="pagination">
+
+<button (click)="prevPage()">Previous</button>
+
+<span>Page {{currentPage}} / {{totalPages}}</span>
+
+<button (click)="nextPage()">Next</button>
+
+</div>
+
+
+
+<!-- SERVICE DETAILS MODAL -->
+
+<div class="modal" *ngIf="selectedService">
+
+<div class="modal-content">
+
+<h2>{{selectedService.name}}</h2>
+
+<img
+[src]="selectedService.image ? selectedService.image : 'assets/no-image.png'"
+class="modal-img"
+/>
+
+<p>{{selectedService.description}}</p>
+
+<p><b>Price:</b> ₹{{selectedService.price}}</p>
+
+<p><b>Duration:</b> {{selectedService.estimatedDuration}} min</p>
+
+<label>Select Date</label>
+
+<input
+type="date"
+[(ngModel)]="date"
+[min]="today"
+/>
+
+<div class="modal-actions">
+
+<button
+(click)="book(selectedService)"
+class="book-btn"
+>
+
+Book Service
+
+</button>
+
+<button
+(click)="closeServiceDetails()"
+class="close-btn"
+>
+
+Close
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</div>

@@ -7,12 +7,15 @@ import { AuthService } from '../../services/auth.service';
   selector: 'app-register',
   standalone: true,
   imports: [FormsModule, RouterModule],
-  templateUrl: './register.html'
+  templateUrl: './register.html',
+  styleUrl: './register.css'
 })
 export class RegisterComponent {
   name = '';
   email = '';
+  phone = '';
   password = '';
+  isAdmin = false;
 
   constructor(
     private auth: AuthService,
@@ -20,16 +23,27 @@ export class RegisterComponent {
   ) {}
 
   register() {
+    console.log('Registering with:', {
+      name: this.name,
+      email: this.email,
+      phone: this.phone,
+      password: this.password,
+      role: this.isAdmin ? 'admin' : 'user'
+    });
+
     this.auth.register({
       name: this.name,
       email: this.email,
-      password: this.password
+      phone: this.phone,
+      password: this.password,
+      role: this.isAdmin ? 'admin' : 'user'
     }).subscribe({
       next: () => {
         alert('Registration successful ✅');
         this.router.navigate(['/login']);
       },
-      error: () => {
+      error: (err) => {
+        console.error('Registration error:', err);
         alert('Registration failed ❌');
       }
     });
